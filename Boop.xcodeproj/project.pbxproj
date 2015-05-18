@@ -19,6 +19,7 @@
 		A5D33E5E1B09F434008D3E2E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D33E5B1B09F434008D3E2E /* FBSDKCoreKit.framework */; };
 		A5D33E5F1B09F434008D3E2E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D33E5C1B09F434008D3E2E /* FBSDKLoginKit.framework */; };
 		A5D33E601B09F434008D3E2E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D33E5D1B09F434008D3E2E /* FBSDKShareKit.framework */; };
+		A5D33E631B0A341D008D3E2E /* BPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D33E621B0A341D008D3E2E /* BPMainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 		A5D33E5B1B09F434008D3E2E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		A5D33E5C1B09F434008D3E2E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		A5D33E5D1B09F434008D3E2E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		A5D33E611B0A341D008D3E2E /* BPMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPMainViewController.h; sourceTree = "<group>"; };
+		A5D33E621B0A341D008D3E2E /* BPMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPMainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,8 @@
 				A560F5031B07015400D60335 /* BPSignupViewController.m */,
 				A5D33E581B0710F8008D3E2E /* BPUserData.h */,
 				A5D33E591B0710F8008D3E2E /* BPUserData.m */,
+				A5D33E611B0A341D008D3E2E /* BPMainViewController.h */,
+				A5D33E621B0A341D008D3E2E /* BPMainViewController.m */,
 			);
 			path = Boop;
 			sourceTree = "<group>";
@@ -252,6 +257,7 @@
 				A560F4DC1B06FFDD00D60335 /* main.m in Sources */,
 				A5D33E5A1B0710F8008D3E2E /* BPUserData.m in Sources */,
 				A560F5041B07015400D60335 /* BPSignupViewController.m in Sources */,
+				A5D33E631B0A341D008D3E2E /* BPMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

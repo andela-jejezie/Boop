@@ -12,6 +12,8 @@
 
 @interface BPUserData : NSObject
 @property(nonatomic, strong)CKRecord* currentUserData;
+@property(nonatomic, strong)CKRecord* UserData;
+
 @property(nonatomic, strong)NSMutableArray* currentUserContacts;
 @property(nonatomic, strong) CKContainer *bpContainer;
 @property(nonatomic, strong) CKDatabase *bpPublicDatabase;
@@ -20,7 +22,7 @@
 
 
 
--(id)init:(CKRecord *)currentUserData currentUserContacts:( NSMutableArray *)currentUserContacts;
+-(id)init:(CKRecord*)currentUserData currentUserContacts:(NSMutableArray *)currentUserContacts UserData:(CKRecord*)UserData;
 + (BPUserData*)sharedInstance;
 
 - (void)saveUser:(NSDictionary *)userData completion:(void (^)(void))completionBlock;

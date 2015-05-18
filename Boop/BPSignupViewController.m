@@ -19,29 +19,35 @@
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     loginButton.center = self.view.center;
     loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
-    BPUserData* bpUserData = [[BPUserData alloc]init];
-    
-    
+    loginButton.delegate = self;
     [self.view addSubview:loginButton];
     
     if ([FBSDKAccessToken currentAccessToken]) {
-        
-        [[[FBSDKGraphRequest alloc]initWithGraphPath:@"me" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-            if (!error) {
-               [bpUserData saveUser:result completion:^{
-                   NSLog(@"done");
-                   NSLog(@"current user %@", [BPUserData sharedInstance].currentUserData);
-                   
-               }];
-                
-
-            }
-        }];
+        [self getUserData];
         [self fetchUserContact];
     }
     
     
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+-(void)getUserData {
+//    BPUserData* bpUserData = [[BPUserData alloc]init];
+    
+    [[[FBSDKGraphRequest alloc]initWithGraphPath:@"me" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            [[BPUserData sharedInstance] saveUser:result completion:^{
+                NSLog(@"done");
+                
+                
+            }];
+            
+            
+        }
+    }];
+    
+    NSLog(@"current user %@", [BPUserData sharedInstance].UserData);
+    
 }
 
 
@@ -61,6 +67,18 @@
     
 }
 
+-(void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
+    if (!error) {
+        [self getUserData];
+        [self fetchUserContact];
+    }
+    NSLog(@"login in");
+}
+
+-(void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+    NSLog(@"log out");
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -76,4 +94,8 @@
 }
 */
 
+- (IBAction)check:(id)sender {
+    
+    [self performSegueWithIdentifier:@"mainView" sender:nil];
+}
 @end

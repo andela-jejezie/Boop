@@ -11,11 +11,12 @@
 
 @implementation BPUserData
 
--(id)init:(CKRecord *)currentUserData currentUserContacts:(NSMutableArray *)currentUserContacts {
+-(id)init:(CKRecord *)currentUserData currentUserContacts:(NSMutableArray *)currentUserContacts UserData:(CKRecord*)UserData {
     self = [super init];
     if (self) {
         _currentUserData = currentUserData;
         _currentUserContacts = currentUserContacts;
+        _UserData = UserData;
     }
     return self;
 }
@@ -54,7 +55,9 @@
             bpUserRecord[@"gender"] = userData[@"gender"];
             
             // set current user record for use when referencing ghost.
-            self.currentUserData = bpUserRecord;
+            self.UserData = bpUserRecord;
+            
+            NSLog(@"user data %@", self.UserData);
             
             [self.bpPublicDatabase saveRecord:bpUserRecord completionHandler:^(CKRecord *record, NSError *error) {
                 if (!error) {

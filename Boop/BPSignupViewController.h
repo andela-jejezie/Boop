@@ -11,6 +11,10 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "BPUserData.h"
 
-@interface BPSignupViewController : UIViewController
+@interface BPSignupViewController : UIViewController <FBSDKLoginButtonDelegate>
+@property (weak, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
+
+- (IBAction)check:(id)sender;
+
 
 @end
