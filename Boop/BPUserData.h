@@ -23,6 +23,6 @@
 -(id)init:(CKRecord *)currentUserData currentUserContacts:( NSMutableArray *)currentUserContacts;
 + (BPUserData*)sharedInstance;
 
-- (void)saveUser:(NSDictionary *)userData
-                 completion:(void (^)(void))completionBlock;
+- (void)saveUser:(NSDictionary *)userData completion:(void (^)(void))completionBlock;
+- (void)saveUserContact:(NSMutableArray *)userContacts completion:(void (^)(void))completionBlock;
 @end

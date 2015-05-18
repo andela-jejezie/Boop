@@ -54,17 +54,59 @@
             bpUserRecord[@"gender"] = userData[@"gender"];
             
             // set current user record for use when referencing ghost.
-            self.refRecord = bpUserRecord;
+            self.currentUserData = bpUserRecord;
             
             [self.bpPublicDatabase saveRecord:bpUserRecord completionHandler:^(CKRecord *record, NSError *error) {
                 if (!error) {
                     NSLog(@"saved user %@", record);
+                    self.currentUserData = record;
+//                    NSLog(@"contatcs %@", self.currentUserContacts);
                 }else {
                    NSLog(@"error saving user %@", error);
                 }
+                
             }];
+        }else {
+            
+            
+            NSLog(@"error fetching user %@", error);
+            
         }
+        completionBlock();
     }];
+}
+
+-(void)saveUserContact:(NSMutableArray *)userContacts completion:(void (^)(void))completionBlock {
+    
+    for (NSDictionary* contact in userContacts) {
+        
+//        self.typeOfUser = @"BGU";
+//        CKRecordID *userRecordID = [[CKRecordID alloc] initWithRecordName:[NSString stringWithFormat:@"%@%@",self.typeOfUser, contact[@"name"]]];
+//        CKRecord *userRecord = [[CKRecord alloc] initWithRecordType:@"boopUsers" recordID:userRecordID];
+        CKRecord* userRecord = [[CKRecord alloc]initWithRecordType:@"boopUsers"];
+        
+        
+        userRecord[@"name"] = contact[@"name"];
+        userRecord[@"picture"] = contact[@"picture"][@"data"][@"url"];
+        userRecord[@"registeredKnotworkUser"] = @"NO";  //        BOOL boolValue = [myString boolValue]
+        userRecord[@"id"] = contact[@"id"];
+        
+        CKReference* ref = [[CKReference alloc] initWithRecord:self.currentUserData action:CKReferenceActionNone];
+//
+        NSMutableArray *testArray = [NSMutableArray array];
+        [testArray addObject:ref];
+        userRecord[@"contactList"] = testArray;
+        
+        [self.bpPublicDatabase saveRecord:userRecord completionHandler:^(CKRecord *savedRecord, NSError *saveError) {
+            if (!saveError) {
+                 NSLog(@"contact record %@",savedRecord );
+            }else {
+                NSLog(@"error %@", saveError);
+            }
+           
+        }];
+    }
+    completionBlock();
 }
 
 

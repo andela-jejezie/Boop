@@ -25,40 +25,41 @@
     [self.view addSubview:loginButton];
     
     if ([FBSDKAccessToken currentAccessToken]) {
-        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/taggable_friends" parameters:nil]
-         startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-             if (!error) {
-                 //                 NSArray* currentUserContacts = [[NSArray alloc]init];
-                 //                 currentUserContacts = result[@"data"];
-                 [BPUserData sharedInstance].currentUserContacts = result;
-//                 NSLog(@"fetched user:%@", [BPUserData sharedInstance].currentUserContacts);
-                 
-             }
-         }];
         
         [[[FBSDKGraphRequest alloc]initWithGraphPath:@"me" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             if (!error) {
                [bpUserData saveUser:result completion:^{
                    NSLog(@"done");
+                   NSLog(@"current user %@", [BPUserData sharedInstance].currentUserData);
+                   
                }];
                 
 
             }
         }];
-        
+        [self fetchUserContact];
     }
     
     
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-// Call method when user information has been fetched
-//- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
-//                            user:(id<FBGraphUser>)user {
-//    
-//}
 
-
+-(void)fetchUserContact {
+    
+    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/taggable_friends" parameters:nil]
+     startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+         if (!error) {
+             [BPUserData sharedInstance].currentUserContacts = result[@"data"];
+                              NSLog(@"contact %@", [BPUserData sharedInstance].currentUserContacts[0]);
+             //                 [bpUserData saveUserContact:[BPUserData sharedInstance].currentUserContacts completion:^{
+             //                     NSLog(@"completed");
+             //                 }];
+         }
+     }];
+    
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
