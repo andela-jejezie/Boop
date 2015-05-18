@@ -27,38 +27,6 @@
             endingLineNumber = "100"
             landmarkName = "-saveUserContact:completion:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[BPUserData saveUserContact:completion:]"
-                  moduleName = "Boop"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/johnsonejezie/Documents/Boop/Boop/BPUserData.m"
-                  timestampString = "453626740.023134"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
-                  offsetFromSymbolStart = "1111">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__41-[BPUserData saveUserContact:completion:]_block_invoke"
-                  moduleName = "Boop"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/johnsonejezie/Documents/Boop/Boop/BPUserData.m"
-                  timestampString = "453626740.023325"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
-                  offsetFromSymbolStart = "67">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
