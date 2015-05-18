@@ -18,13 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDY-Et-Jar" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="0.0" y="531" width="600" height="69"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="69" id="pca-Fn-cEt"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5T-lE-HoN">
                                 <rect key="frame" x="277" y="80" width="46" height="30"/>
                                 <constraints>
@@ -40,17 +33,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="JDY-Et-Jar" secondAttribute="bottom" id="Dmc-2E-z0h"/>
-                            <constraint firstItem="JDY-Et-Jar" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="P9Z-IV-Pvf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="JDY-Et-Jar" secondAttribute="trailing" constant="-16" id="XAm-Rg-vRA"/>
                             <constraint firstAttribute="centerX" secondItem="c5T-lE-HoN" secondAttribute="centerX" id="cGX-tP-ZLq"/>
-                            <constraint firstItem="JDY-Et-Jar" firstAttribute="top" secondItem="c5T-lE-HoN" secondAttribute="bottom" constant="421" id="eZM-er-n9J"/>
                             <constraint firstItem="c5T-lE-HoN" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="16" id="sqt-5g-yiX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BAl-8I-Lsb"/>
                     <connections>
-                        <outlet property="loginButton" destination="JDY-Et-Jar" id="ksP-0J-tpm"/>
                         <segue destination="3gq-Ze-p2B" kind="show" identifier="mainView" id="l4c-sP-0if"/>
                     </connections>
                 </viewController>

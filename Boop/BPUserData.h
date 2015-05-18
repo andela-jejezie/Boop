@@ -12,8 +12,8 @@
 
 @interface BPUserData : NSObject
 @property(nonatomic, strong)CKRecord* currentUserData;
-@property(nonatomic, strong)CKRecord* UserData;
-
+@property(nonatomic, strong)NSDictionary* currentUserFBResponse;
+@property(nonatomic, strong)NSMutableArray* currentUserContactsFBResponse;
 @property(nonatomic, strong)NSMutableArray* currentUserContacts;
 @property(nonatomic, strong) CKContainer *bpContainer;
 @property(nonatomic, strong) CKDatabase *bpPublicDatabase;

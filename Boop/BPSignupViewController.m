@@ -18,59 +18,76 @@
     [super viewDidLoad];    
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     loginButton.center = self.view.center;
-    loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     loginButton.delegate = self;
-    [self.view addSubview:loginButton];
-    
-    if ([FBSDKAccessToken currentAccessToken]) {
-        [self getUserData];
-        [self fetchUserContact];
-    }
-    
-    
-    // Do any additional setup after loading the view, typically from a nib.
-}
-
--(void)getUserData {
+    loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
 //    BPUserData* bpUserData = [[BPUserData alloc]init];
     
-    [[[FBSDKGraphRequest alloc]initWithGraphPath:@"me" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-        if (!error) {
-            [[BPUserData sharedInstance] saveUser:result completion:^{
-                NSLog(@"done");
-                
-                
-            }];
-            
-            
-        }
-    }];
     
-    NSLog(@"current user %@", [BPUserData sharedInstance].UserData);
+    [self.view addSubview:loginButton];
+    
+
+    // Do any additional setup after loading the view, typically from a nib.
+}
+//-(void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error{
+//    
+//    BPUserData* bpUserData = [[BPUserData alloc]init];
+//
+//    if ([FBSDKAccessToken currentAccessToken]) {
+//        [[[FBSDKGraphRequest alloc]initWithGraphPath:@"me" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+//            NSLog(@"id, %@", result);
+//            if (!error) {
+//                [bpUserData saveUser:result completion:^{
+//                    NSLog(@"done");
+//                    NSLog(@"current user %@", [BPUserData sharedInstance].currentUserData);
+//                }];
+//            }
+//        }];
+//        [self fetchUserContact];
+//    }
+//}
+
+
+-(void)getUser {
+    if ([FBSDKAccessToken currentAccessToken]) {
+        
+        [[[FBSDKGraphRequest alloc]initWithGraphPath:@"me" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            NSLog(@"id, %@", result);
+            if (!error) {
+                [BPUserData sharedInstance].currentUserFBResponse = result;
+                [self fetchUserContact];
+            }
+        }];
+    }
     
 }
+
 
 
 -(void)fetchUserContact {
-    
-    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/taggable_friends" parameters:nil]
+    [
+     [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/taggable_friends" parameters:nil]
+     
      startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-         if (!error) {
-             [BPUserData sharedInstance].currentUserContacts = result[@"data"];
-                              NSLog(@"contact %@", [BPUserData sharedInstance].currentUserContacts[0]);
-             //                 [bpUserData saveUserContact:[BPUserData sharedInstance].currentUserContacts completion:^{
-             //                     NSLog(@"completed");
-             //                 }];
+        if (!error) {
+             [BPUserData sharedInstance].currentUserContactsFBResponse = result[@"data"];
+//        BPUserData *userObject = [[BPUserData alloc] init];
+        [[BPUserData sharedInstance] saveUser:[BPUserData sharedInstance].currentUserFBResponse completion:^{
+            NSLog(@"completed user and user's connection registration");
+        }];
+            NSLog(@"contact %@", [BPUserData sharedInstance].currentUserContactsFBResponse[0]);
+            NSLog(@"number of contacts %lu",  (unsigned long)[BPUserData sharedInstance].currentUserContactsFBResponse.count);
+         }
+         else{
+             NSLog(@"facebook fetch contacts error %@, error code %ld", error,(long)error.code);
          }
      }];
-    
-    
 }
 
 -(void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
     if (!error) {
-        [self getUserData];
-        [self fetchUserContact];
+        
+        [self getUser];
+        
     }
     NSLog(@"login in");
 }
