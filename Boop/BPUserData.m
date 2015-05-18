@@ -11,11 +11,17 @@
 
 @implementation BPUserData
 
--(id)init:(CKRecord *)currentUserData currentUserContacts:(NSMutableArray *)currentUserContacts {
+-(id)init:(CKRecord *)currentUserData
+    currentUserContacts:(NSMutableArray *)currentUserContacts
+    currentUserFBResponse: (NSDictionary *)currentUserFBResponse
+    currentUserContactsFBResponse: (NSMutableArray *)currentUserContactsFBResponse
+{
     self = [super init];
     if (self) {
         _currentUserData = currentUserData;
         _currentUserContacts = currentUserContacts;
+        _currentUserContactsFBResponse = currentUserContactsFBResponse;
+        _currentUserFBResponse = currentUserFBResponse;
     }
     return self;
 }
@@ -52,27 +58,31 @@
             bpUserRecord[@"id"] = userData[@"id"];
             bpUserRecord[@"email"] = userData[@"email"];
             bpUserRecord[@"gender"] = userData[@"gender"];
-            
             // set current user record for use when referencing ghost.
+            // self.currentUserData = bpUserRecord;
+            NSLog(@"record to save %@",  self.currentUserData);
             self.currentUserData = bpUserRecord;
-            
             [self.bpPublicDatabase saveRecord:bpUserRecord completionHandler:^(CKRecord *record, NSError *error) {
                 if (!error) {
                     NSLog(@"saved user %@", record);
-                    self.currentUserData = record;
-//                    NSLog(@"contatcs %@", self.currentUserContacts);
+                    [self saveUserContact:self.currentUserContactsFBResponse completion:^{
+                          NSLog(@"User contacts populated");
+                    }];
                 }else {
-                   NSLog(@"error saving user %@", error);
+                   NSLog(@"error saving user %@ error code is: %ld", error, (long)error.code);
+                    NSLog(@"contacts count %lu",(unsigned long)self.currentUserContactsFBResponse.count );
+                         NSLog(@"contacts count %@",self.currentUserContactsFBResponse);
+                    [self saveUserContact:self.currentUserContactsFBResponse completion:^{
+                        NSLog(@"User contacts populated");
+                    }];
                 }
-                
+                completionBlock();
             }];
         }else {
-            
-            
             NSLog(@"error fetching user %@", error);
-            
+            completionBlock();
         }
-        completionBlock();
+        
     }];
 }
 
