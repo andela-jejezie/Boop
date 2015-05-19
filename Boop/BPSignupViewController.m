@@ -44,7 +44,7 @@
     self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0 green:0.65 blue:0.49 alpha:1];
     self.navigationItem.hidesBackButton = YES;
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-    loginButton.center = self.view.center;
+    loginButton.center = CGPointMake(self.view.center.x, self.view.center.y * 1.8);
     loginButton.delegate = self;
     loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
 //    BPUserData* bpUserData = [[BPUserData alloc]init];
