@@ -20,7 +20,7 @@
 @property(nonatomic, strong) CKDatabase *bpPublicDatabase;
 @property(nonatomic,strong) CKRecord* refRecord;
 @property(nonatomic,strong) NSString* typeOfUser;
-
+@property(nonatomic,assign) BOOL* closeTutorialPage;
 
 
 -(id)init:(CKRecord*)currentUserData currentUserContacts:(NSMutableArray *)currentUserContacts UserData:(CKRecord*)UserData;

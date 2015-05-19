@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <CloudKit/CloudKit.h>
-
 @interface BPMainViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (strong, nonatomic)CKRecord *randomFriend;

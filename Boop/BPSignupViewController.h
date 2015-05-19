@@ -10,7 +10,11 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "BPUserData.h"
-
-@interface BPSignupViewController : UIViewController <FBSDKLoginButtonDelegate>
+#import "BPTutorialViewController.h"
+@interface BPSignupViewController : UIViewController <UIPageViewControllerDataSource,FBSDKLoginButtonDelegate>
+@property (strong, nonatomic) UIPageViewController *pageViewController;
+@property (strong, nonatomic) NSArray *titleTexts;
+@property (strong, nonatomic) NSArray *btnTexts;
+@property NSUInteger pageIndex;
 
 @end

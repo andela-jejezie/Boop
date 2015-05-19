@@ -13,7 +13,7 @@
 
 
 -(id)init:(CKRecord *)currentUserData
-selectedForChat:(CKRecord *)selectedForChat
+    selectedForChat:(CKRecord *)selectedForChat
     currentUserContacts:(NSMutableArray *)currentUserContacts
     currentUserFBResponse: (NSDictionary *)currentUserFBResponse
     currentUserContactsFBResponse: (NSMutableArray *)currentUserContactsFBResponse
@@ -25,6 +25,7 @@ selectedForChat:(CKRecord *)selectedForChat
         _currentUserContactsFBResponse = currentUserContactsFBResponse;
         _currentUserFBResponse = currentUserFBResponse;
         _selectedForChat = _selectedForChat;
+        _closeTutorialPage = NO;
     }
     return self;
 }
