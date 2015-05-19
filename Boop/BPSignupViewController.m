@@ -15,7 +15,8 @@
 @implementation BPSignupViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];    
+    [super viewDidLoad];
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0 green:0.65 blue:0.49 alpha:1];
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     loginButton.center = self.view.center;
     loginButton.delegate = self;
@@ -25,22 +26,9 @@
     
     [self.view addSubview:loginButton];
     
-    if ([FBSDKAccessToken currentAccessToken]) {
-        
-        [[[FBSDKGraphRequest alloc]initWithGraphPath:@"me" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-            NSLog(@"id, %@", result);
-            if (!error) {
-                [BPUserData sharedInstance].currentUserFBResponse = result;
-                [self fetchUserContact];
-            }
-        }];
-      
-    }
-    
-    
+
     // Do any additional setup after loading the view, typically from a nib.
 }
-
 //-(void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error{
 //    
 //    BPUserData* bpUserData = [[BPUserData alloc]init];
@@ -58,6 +46,21 @@
 //        [self fetchUserContact];
 //    }
 //}
+
+
+-(void)getUser {
+    if ([FBSDKAccessToken currentAccessToken]) {
+        
+        [[[FBSDKGraphRequest alloc]initWithGraphPath:@"me" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            NSLog(@"id, %@", result);
+            if (!error) {
+                [BPUserData sharedInstance].currentUserFBResponse = result;
+                [self fetchUserContact];
+            }
+        }];
+    }
+    
+}
 
 
 
@@ -81,6 +84,19 @@
      }];
 }
 
+-(void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
+    if (!error) {
+        
+        [self getUser];
+        
+    }
+    NSLog(@"login in");
+}
+
+-(void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+    NSLog(@"log out");
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -96,4 +112,8 @@
 }
 */
 
+- (IBAction)check:(id)sender {
+    
+    [self performSegueWithIdentifier:@"mainView" sender:nil];
+}
 @end

@@ -11,6 +11,7 @@
 
 @implementation BPUserData
 
+
 -(id)init:(CKRecord *)currentUserData
 selectedForChat:(CKRecord *)selectedForChat
     currentUserContacts:(NSMutableArray *)currentUserContacts
@@ -76,6 +77,9 @@ selectedForChat:(CKRecord *)selectedForChat
                          NSLog(@"contacts count %@",self.currentUserContactsFBResponse);
                     [self saveUserContact:self.currentUserContactsFBResponse completion:^{
                         NSLog(@"User contacts populated");
+                        [self fetchUserContact:^{
+                            NSLog(@"done fetching contact");
+                        }];
                     }];
                 }
                 completionBlock();
@@ -117,6 +121,31 @@ selectedForChat:(CKRecord *)selectedForChat
         }];
     }
     completionBlock();
+}
+
+-(void)fetchUserContact:(void (^)(void))completionBlock{
+
+    CKContainer* myContainer  = [CKContainer defaultContainer];
+    CKDatabase* publicDatabase = [myContainer publicCloudDatabase];
+    CKReference* recordToMatch = [[CKReference alloc] initWithRecordID:[BPUserData sharedInstance].currentUserData.recordID action:CKReferenceActionNone];
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"contactList CONTAINS %@",recordToMatch];
+        CKQuery *query = [[CKQuery alloc] initWithRecordType:@"boopUsers" predicate:predicate];
+        [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+            if (error) {
+                // Error handling for failed fetch from public database
+                NSLog(@"error querying knotwork users %@", error);
+            }
+            else {
+                // Display the fetched records
+                NSLog(@"result for contacts %@", results);
+                self.currentUserContacts = results;
+                
+                NSLog(@"result for self.currentContacts %@", self.currentUserContacts);
+            }
+        }];
+        
+    });
 }
 
 
