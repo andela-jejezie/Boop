@@ -32,4 +32,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *chooseFriendButton;
 - (IBAction)chooseFriendButton:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIView *friendContainerView;
+
+@property (weak, nonatomic) IBOutlet UIButton *refreshFriendButton;
+
+
+
 @end

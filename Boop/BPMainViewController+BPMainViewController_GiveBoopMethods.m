@@ -11,7 +11,8 @@
 @implementation BPMainViewController (BPMainViewController_GiveBoopMethods)
 
 -(CKRecord*)getRandomFriend:(NSArray*)friends {
-   return [BPUserData sharedInstance].currentUserContacts[[BPUserData sharedInstance].currentUserContacts.count - 1];
+   return [BPUserData sharedInstance].currentUserContacts[arc4random_uniform([[BPUserData sharedInstance].currentUserContacts  count]-1)];
+    
 }
 -(void)displayRandomlySelectedFriend:(CKRecord*)randomFriend {
     
@@ -22,7 +23,7 @@
         NSData* friendImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[randomFriend valueForKey:@"picture"]]];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!friendImageData) {
-                self.friendImageView.image = [UIImage imageNamed:@"reload_refresh_alt"];
+                self.friendImageView.image = [UIImage imageNamed:@"bill-gates"];
             }else {
                 self.friendImageView.image = [UIImage imageWithData:friendImageData];
 
@@ -45,6 +46,12 @@
     
     self.receiveButton.layer.borderWidth = 1.0f;
     self.receiveButton.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor;
+    
+    self.refreshFriendButton.layer.borderWidth = 2.0f;
+    self.refreshFriendButton.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor;
+    
+    self.friendContainerView.layer.borderWidth = 2.0f;
+    self.friendContainerView.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor;
     
     self.giveButton.layer.borderWidth = 1.0f;
     self.giveButton.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor;

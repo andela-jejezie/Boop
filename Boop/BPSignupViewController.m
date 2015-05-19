@@ -15,8 +15,7 @@
 @implementation BPSignupViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0 green:0.65 blue:0.49 alpha:1];
+    [super viewDidLoad];    
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     loginButton.center = self.view.center;
     loginButton.delegate = self;
@@ -86,16 +85,14 @@
 
 -(void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
     if (!error) {
-        
         [self getUser];
-        
     }
     NSLog(@"login in");
 }
-
--(void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
-    NSLog(@"log out");
-}
+//
+//-(void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+//    NSLog(@"log out");
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -17,6 +17,9 @@
 @property(nonatomic, strong) UIView* topRightBorder;
 @property(nonatomic, strong)UIView* bottomRightBorder;
 @property(nonatomic, strong)UIView* bottomLeftBorder;
+@property(nonatomic)BOOL isBorderAdded;
+@property(nonatomic)BOOL isSendButtonTapped;
+
 
 @end
 
@@ -27,6 +30,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0 green:0.65 blue:0.49 alpha:1];
+    self.isSendButtonTapped = NO;
+
 
 }
 
@@ -47,49 +52,28 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
+    [self refreshFriend];
+    
+    [self displayRandomlySelectedFriend:self.randomFriend];
     [self topViewBorder];
     [self subViewsDisplayDesign];
-    self.randomFriend = [self getRandomFriend:[BPUserData sharedInstance].currentUserContacts];
-    [self displayRandomlySelectedFriend:self.randomFriend];
+
     
 }
 
--(void)topViewBorder {
+-(void)refreshFriend{
     
-    UIView* middleBar = [[UIView alloc]init];
-    CGSize size = CGSizeMake(2, self.topView.frame.size.height + 5);
-    CGPoint originPoint = CGPointMake(middleBar.frame.origin.x, middleBar.frame.origin.y);
-    originPoint.y = self.topView.frame.origin.y;
-    CGRect frame = middleBar.frame;
-    frame.size = size;
-    frame.origin = originPoint;
-    middleBar.frame = frame;
-    CGPoint point = self.topView.center;
-    point.x = self.view.center.x;
-    middleBar.center = point;
-    middleBar.backgroundColor = [UIColor blackColor];
+    if (self.isSendButtonTapped) {
+        self.isSendButtonTapped = NO;
+        return;
+    }
     
-   self.leftTopBorder = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x
-                                                                    , self.topView.frame.origin.y, self.view.frame.size.width/2, 2)];
-    self.leftTopBorder.backgroundColor = [UIColor blackColor];
-    
-    self.topRightBorder = [[UIView alloc]initWithFrame:CGRectMake(self.view.center.x, self.topView.frame.origin.y, self.view.frame.size.width/2, 2)];
-    self.topRightBorder.backgroundColor = [UIColor blackColor];
-    
-    self.bottomRightBorder = [[UIView alloc]initWithFrame:CGRectMake(self.view.center.x, self.topView.frame.origin.y + self.topView.frame.size.height, self.view.frame.size.width/2, 2)];
-    
-    self.bottomRightBorder.backgroundColor = [UIColor blackColor];
-    
-    self.bottomLeftBorder = [[UIView alloc]initWithFrame:CGRectMake(0, self.topView.frame.origin.y + self.topView.frame.size.height, self.view.frame.size.width/2, 2)];
-    self.bottomLeftBorder.backgroundColor = [UIColor blackColor];
-    
-    [self.view addSubview:self.bottomRightBorder];
-    [self.view addSubview:self.leftTopBorder];
-    
-    
-    [self.view addSubview:middleBar];
-    
+    self.randomFriend = [self getRandomFriend:[BPUserData sharedInstance].currentUserContacts];
+    NSLog(@"random friends %@", self.randomFriend);
+    [BPUserData sharedInstance].selectedFriend = self.randomFriend;
+    NSLog(@"selected friends %@", [BPUserData sharedInstance].selectedFriend);
 }
+
 - (IBAction)giveButtonAction:(id)sender {
     
     [self.leftTopBorder removeFromSuperview];
@@ -112,11 +96,64 @@
 }
 
 - (IBAction)refreshFriendButton:(id)sender {
+    self.isBorderAdded = YES;
+    
+//    [self viewDidLoad];
+    [self viewWillAppear:YES];
+    [self viewDidAppear:YES];
 }
 - (IBAction)sendButton:(id)sender {
+    self.isSendButtonTapped = YES;
+    [[BPUserData sharedInstance] boopSomeone:self.messageTextView.text completion:^{
+        NSLog(@"done");
+        [self performSegueWithIdentifier:@"BoopSent" sender:nil];
+    }];
 }
 - (IBAction)chooseFriendButton:(id)sender {
     
     [self performSegueWithIdentifier:@"ContactListViewSegue" sender:nil];
+}
+
+
+-(void)topViewBorder {
+    
+    if (self.isBorderAdded) {
+        self.isBorderAdded = NO;
+        return;
+    }
+    
+    UIView* middleBar = [[UIView alloc]init];
+    CGSize size = CGSizeMake(2, self.topView.frame.size.height + 4);
+    CGPoint originPoint = CGPointMake(middleBar.frame.origin.x, middleBar.frame.origin.y);
+    originPoint.y = self.topView.frame.origin.y;
+    CGRect frame = middleBar.frame;
+    frame.size = size;
+    frame.origin = originPoint;
+    middleBar.frame = frame;
+    CGPoint point = self.topView.center;
+    point.x = self.view.center.x;
+    middleBar.center = point;
+    middleBar.backgroundColor = [UIColor blackColor];
+    
+    self.leftTopBorder = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x
+                                                                 , self.topView.frame.origin.y, self.view.frame.size.width/2, 2)];
+    self.leftTopBorder.backgroundColor = [UIColor blackColor];
+    
+    self.topRightBorder = [[UIView alloc]initWithFrame:CGRectMake(self.view.center.x, self.topView.frame.origin.y, self.view.frame.size.width/2, 2)];
+    self.topRightBorder.backgroundColor = [UIColor blackColor];
+    
+    self.bottomRightBorder = [[UIView alloc]initWithFrame:CGRectMake(self.view.center.x, self.topView.frame.origin.y + self.topView.frame.size.height, self.view.frame.size.width/2, 2)];
+    
+    self.bottomRightBorder.backgroundColor = [UIColor blackColor];
+    
+    self.bottomLeftBorder = [[UIView alloc]initWithFrame:CGRectMake(0, self.topView.frame.origin.y + self.topView.frame.size.height, self.view.frame.size.width/2, 2)];
+    self.bottomLeftBorder.backgroundColor = [UIColor blackColor];
+    
+    [self.view addSubview:self.bottomRightBorder];
+    [self.view addSubview:self.leftTopBorder];
+    
+    
+    [self.view addSubview:middleBar];
+    
 }
 @end

@@ -23,6 +23,7 @@
 		A5D33E781B0A8466008D3E2E /* BPMainViewController+BPMainViewController_TableMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D33E771B0A8466008D3E2E /* BPMainViewController+BPMainViewController_TableMethods.m */; };
 		A5D33E7B1B0AF56F008D3E2E /* BPMainViewController+BPMainViewController_GiveBoopMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D33E7A1B0AF56F008D3E2E /* BPMainViewController+BPMainViewController_GiveBoopMethods.m */; };
 		A5D33E7E1B0B2E25008D3E2E /* BPContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D33E7D1B0B2E24008D3E2E /* BPContactListViewController.m */; };
+		A5D33E811B0B649E008D3E2E /* BPBoopSentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D33E801B0B649E008D3E2E /* BPBoopSentViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		A5D33E7A1B0AF56F008D3E2E /* BPMainViewController+BPMainViewController_GiveBoopMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPMainViewController+BPMainViewController_GiveBoopMethods.m"; sourceTree = "<group>"; };
 		A5D33E7C1B0B2E24008D3E2E /* BPContactListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPContactListViewController.h; sourceTree = "<group>"; };
 		A5D33E7D1B0B2E24008D3E2E /* BPContactListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPContactListViewController.m; sourceTree = "<group>"; };
+		A5D33E7F1B0B649E008D3E2E /* BPBoopSentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBoopSentViewController.h; sourceTree = "<group>"; };
+		A5D33E801B0B649E008D3E2E /* BPBoopSentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBoopSentViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +135,8 @@
 				A5D33E7A1B0AF56F008D3E2E /* BPMainViewController+BPMainViewController_GiveBoopMethods.m */,
 				A5D33E7C1B0B2E24008D3E2E /* BPContactListViewController.h */,
 				A5D33E7D1B0B2E24008D3E2E /* BPContactListViewController.m */,
+				A5D33E7F1B0B649E008D3E2E /* BPBoopSentViewController.h */,
+				A5D33E801B0B649E008D3E2E /* BPBoopSentViewController.m */,
 			);
 			path = Boop;
 			sourceTree = "<group>";
@@ -271,6 +276,7 @@
 				A560F4DF1B06FFDD00D60335 /* AppDelegate.m in Sources */,
 				A5D33E7E1B0B2E25008D3E2E /* BPContactListViewController.m in Sources */,
 				A5D33E7B1B0AF56F008D3E2E /* BPMainViewController+BPMainViewController_GiveBoopMethods.m in Sources */,
+				A5D33E811B0B649E008D3E2E /* BPBoopSentViewController.m in Sources */,
 				A560F4DC1B06FFDD00D60335 /* main.m in Sources */,
 				A5D33E5A1B0710F8008D3E2E /* BPUserData.m in Sources */,
 				A560F5041B07015400D60335 /* BPSignupViewController.m in Sources */,

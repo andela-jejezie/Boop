@@ -19,12 +19,15 @@
 @property(nonatomic, strong) CKDatabase *bpPublicDatabase;
 @property(nonatomic,strong) CKRecord* refRecord;
 @property(nonatomic,strong) NSString* typeOfUser;
+@property(nonatomic,strong) CKRecord* selectedFriend;
 
 
 
--(id)init:(CKRecord*)currentUserData currentUserContacts:(NSMutableArray *)currentUserContacts UserData:(CKRecord*)UserData;
+
+-(id)init:(CKRecord*)currentUserData currentUserContacts:(NSMutableArray *)currentUserContacts UserData:(CKRecord*)UserData selectedFriend:(CKRecord*)selectedFriend;
 + (BPUserData*)sharedInstance;
 
 - (void)saveUser:(NSDictionary *)userData completion:(void (^)(void))completionBlock;
 - (void)saveUserContact:(NSMutableArray *)userContacts completion:(void (^)(void))completionBlock;
+-(void)boopSomeone:(NSString*)message completion:(void (^)(void))completionBlock;
 @end

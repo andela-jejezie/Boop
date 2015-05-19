@@ -15,7 +15,7 @@
 -(id)init:(CKRecord *)currentUserData
     currentUserContacts:(NSMutableArray *)currentUserContacts
     currentUserFBResponse: (NSDictionary *)currentUserFBResponse
-    currentUserContactsFBResponse: (NSMutableArray *)currentUserContactsFBResponse
+    currentUserContactsFBResponse: (NSMutableArray *)currentUserContactsFBResponse selectedFriend:(CKRecord*)selectedFriend
 {
     self = [super init];
     if (self) {
@@ -23,6 +23,7 @@
         _currentUserContacts = currentUserContacts;
         _currentUserContactsFBResponse = currentUserContactsFBResponse;
         _currentUserFBResponse = currentUserFBResponse;
+        _selectedFriend = selectedFriend;
     }
     return self;
 }
@@ -95,7 +96,7 @@
     for (NSDictionary* contact in userContacts) {
         
         self.typeOfUser = @"BGU";
-        CKRecordID *userRecordID = [[CKRecordID alloc] initWithRecordName:[NSString stringWithFormat:@"%@%@",self.typeOfUser, contact[@"id"]]];
+        CKRecordID *userRecordID = [[CKRecordID alloc] initWithRecordName:[NSString stringWithFormat:@"%@%@",self.typeOfUser, contact[@"name"]]];
         CKRecord *userRecord = [[CKRecord alloc] initWithRecordType:@"boopUsers" recordID:userRecordID];
 //        CKRecord* userRecord = [[CKRecord alloc]initWithRecordType:@"boopUsers"];
         
@@ -146,6 +147,58 @@
         }];
         
     });
+}
+
+-(void)boopSomeone:(NSString*)message completion:(void (^)(void))completionBlock {
+    
+    NSString* currentUserName = [NSString stringWithFormat:@"%@ %@", [BPUserData sharedInstance].currentUserData[@"firstName"], [BPUserData sharedInstance].currentUserData[@"lastName"]];
+    
+    self.bpContainer  = [CKContainer defaultContainer];
+    self.bpPublicDatabase = [self.bpContainer publicCloudDatabase];
+    CKRecordID *booperID = [[CKRecordID alloc] initWithRecordName:[NSString stringWithFormat:@"BU%@",self.currentUserData.recordID]];
+    CKRecordID *selectedFriendID = [[CKRecordID alloc] initWithRecordName:self.selectedFriend.recordID.recordName];
+    
+    [self.bpPublicDatabase fetchRecordWithID:self.currentUserData.recordID completionHandler:^(CKRecord *record, NSError *error) {
+        if (!error) {
+            
+            CKReference* ref1 = [[CKReference alloc] initWithRecord:record action:CKReferenceActionNone];
+            CKReference* ref2 = [[CKReference alloc] initWithRecordID:selectedFriendID action:CKReferenceActionNone];
+            CKRecord *boopRecord = [[CKRecord alloc] initWithRecordType:@"booped"];
+            
+            boopRecord[@"booperID"] = [BPUserData sharedInstance].currentUserData.recordID.recordName;
+            boopRecord[@"booperName"] = currentUserName;
+            boopRecord[@"booperPicture"] = [BPUserData sharedInstance].currentUserData[@"picture"];
+            
+            boopRecord[@"boopeeID"] = [BPUserData sharedInstance].selectedFriend.recordID.recordName;
+            boopRecord[@"boopeeName"] = [BPUserData sharedInstance].selectedFriend[@"name"];
+            boopRecord[@"boopeePicture"] = [BPUserData sharedInstance].selectedFriend[@"picture"];
+            
+            boopRecord[@"message"] = message;
+            
+            NSMutableArray *refs = [NSMutableArray new];
+            [refs addObjectsFromArray:boopRecord[@"reference"]];
+            //
+            [refs addObject:ref1];
+            [refs addObject:ref2];
+            boopRecord[@"reference" ] =refs;
+            
+            [self.bpPublicDatabase saveRecord:boopRecord completionHandler:^(CKRecord *boopRecord, NSError *error) {
+                if (!error) {
+                    NSLog(@"booped completed %@", boopRecord);
+                }else {
+                    NSLog(@"an error occured %@", error);
+                }
+            }];
+
+
+            
+            NSLog(@"fetched %@", record);
+        }else {
+           NSLog(@"error %@", error);
+        }
+    }];
+    completionBlock();
+    
 }
 
 
