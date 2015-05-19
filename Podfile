@@ -3,6 +3,7 @@
 
 target 'Boop' do
 #pod 'MaterialKit'
+pod 'Firebase', '>= 2.2.2'
 end
 
 target 'BoopTests' do

@@ -12,6 +12,7 @@
 @implementation BPUserData
 
 -(id)init:(CKRecord *)currentUserData
+selectedForChat:(CKRecord *)selectedForChat
     currentUserContacts:(NSMutableArray *)currentUserContacts
     currentUserFBResponse: (NSDictionary *)currentUserFBResponse
     currentUserContactsFBResponse: (NSMutableArray *)currentUserContactsFBResponse
@@ -22,6 +23,7 @@
         _currentUserContacts = currentUserContacts;
         _currentUserContactsFBResponse = currentUserContactsFBResponse;
         _currentUserFBResponse = currentUserFBResponse;
+        _selectedForChat = _selectedForChat;
     }
     return self;
 }
@@ -90,12 +92,10 @@
     
     for (NSDictionary* contact in userContacts) {
         
-//        self.typeOfUser = @"BGU";
-//        CKRecordID *userRecordID = [[CKRecordID alloc] initWithRecordName:[NSString stringWithFormat:@"%@%@",self.typeOfUser, contact[@"name"]]];
-//        CKRecord *userRecord = [[CKRecord alloc] initWithRecordType:@"boopUsers" recordID:userRecordID];
-        CKRecord* userRecord = [[CKRecord alloc]initWithRecordType:@"boopUsers"];
-        
-        
+        self.typeOfUser = @"BGU";
+        CKRecordID *userRecordID = [[CKRecordID alloc] initWithRecordName:[NSString stringWithFormat:@"%@%@",self.typeOfUser, contact[@"id"]]];
+        CKRecord *userRecord = [[CKRecord alloc] initWithRecordType:@"boopUsers" recordID:userRecordID];
+//        CKRecord* userRecord = [[CKRecord alloc]initWithRecordType:@"boopUsers"];
         userRecord[@"name"] = contact[@"name"];
         userRecord[@"picture"] = contact[@"picture"][@"data"][@"url"];
         userRecord[@"registeredKnotworkUser"] = @"NO";  //        BOOL boolValue = [myString boolValue]
