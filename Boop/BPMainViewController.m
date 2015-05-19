@@ -7,6 +7,9 @@
 //
 
 #import "BPMainViewController.h"
+#import "BPUserData.h"
+#import "BPMainViewController+BPMainViewController_GiveBoopMethods.h"
+
 
 @interface BPMainViewController ()
 @property(nonatomic, strong)UIView* middleBar;
@@ -19,21 +22,42 @@
 
 @implementation BPMainViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self topViewBorder];
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0 green:0.65 blue:0.49 alpha:1];
+
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated {
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:0.65 blue:0.49 alpha:1];
+    self.navigationController.navigationBar.translucent = NO;
+    NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIColor whiteColor],NSForegroundColorAttributeName,
+                                    [UIColor whiteColor],NSBackgroundColorAttributeName,
+                                    [UIFont fontWithName:@"OpenSans-Bold" size:22.0], NSFontAttributeName,
+                                    nil];
+    self.navigationController.navigationBar.titleTextAttributes = textAttributes;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [self topViewBorder];
+    [self subViewsDisplayDesign];
+    self.randomFriend = [self getRandomFriend:[BPUserData sharedInstance].currentUserContacts];
+    [self displayRandomlySelectedFriend:self.randomFriend];
+    
 }
 
 -(void)topViewBorder {
     
     UIView* middleBar = [[UIView alloc]init];
-    CGSize size = CGSizeMake(2, self.topView.frame.size.height - 2);
+    CGSize size = CGSizeMake(2, self.topView.frame.size.height + 5);
     CGPoint originPoint = CGPointMake(middleBar.frame.origin.x, middleBar.frame.origin.y);
     originPoint.y = self.topView.frame.origin.y;
     CGRect frame = middleBar.frame;
@@ -52,57 +76,30 @@
     self.topRightBorder = [[UIView alloc]initWithFrame:CGRectMake(self.view.center.x, self.topView.frame.origin.y, self.view.frame.size.width/2, 2)];
     self.topRightBorder.backgroundColor = [UIColor blackColor];
     
-    self.bottomRightBorder = [[UIView alloc]initWithFrame:CGRectMake(self.view.center.x, self.topView.frame.origin.y + self.topView.frame.size.height - 2, self.view.frame.size.width/2, 2)];
+    self.bottomRightBorder = [[UIView alloc]initWithFrame:CGRectMake(self.view.center.x, self.topView.frame.origin.y + self.topView.frame.size.height, self.view.frame.size.width/2, 2)];
     
     self.bottomRightBorder.backgroundColor = [UIColor blackColor];
     
-    self.bottomLeftBorder = [[UIView alloc]initWithFrame:CGRectMake(0, self.topView.frame.origin.y + self.topView.frame.size.height - 2, self.view.frame.size.width/2, 2)];
+    self.bottomLeftBorder = [[UIView alloc]initWithFrame:CGRectMake(0, self.topView.frame.origin.y + self.topView.frame.size.height, self.view.frame.size.width/2, 2)];
     self.bottomLeftBorder.backgroundColor = [UIColor blackColor];
     
-//    [self.view addSubview:bottomLeftBorderView];
     [self.view addSubview:self.bottomRightBorder];
-//    [self.view addSubview:topRightBorderView];
     [self.view addSubview:self.leftTopBorder];
     
     
     [self.view addSubview:middleBar];
     
 }
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return 4;
-    
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
-    cell.textLabel.text = @"cells for table";
-    
-    return cell;
-    
-    
-    
-}
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (IBAction)giveButtonAction:(id)sender {
     
     [self.leftTopBorder removeFromSuperview];
     [self.bottomRightBorder removeFromSuperview];
     [self.view addSubview:self.bottomLeftBorder];
     [self.view addSubview:self.topRightBorder];
+    
+    NSLog(@"result for contacts %@", [BPUserData sharedInstance].currentUserContacts);
 }
+
 
 - (IBAction)receiveButtonAction:(id)sender {
     
@@ -110,5 +107,16 @@
     [self.topRightBorder removeFromSuperview];
     [self.view addSubview:self.leftTopBorder];
     [self.view addSubview:self.bottomRightBorder];
+}
+- (IBAction)cancelButton:(id)sender {
+}
+
+- (IBAction)refreshFriendButton:(id)sender {
+}
+- (IBAction)sendButton:(id)sender {
+}
+- (IBAction)chooseFriendButton:(id)sender {
+    
+    [self performSegueWithIdentifier:@"ContactListViewSegue" sender:nil];
 }
 @end

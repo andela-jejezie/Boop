@@ -75,6 +75,9 @@
                          NSLog(@"contacts count %@",self.currentUserContactsFBResponse);
                     [self saveUserContact:self.currentUserContactsFBResponse completion:^{
                         NSLog(@"User contacts populated");
+                        [self fetchUserContact:^{
+                            NSLog(@"done fetching contact");
+                        }];
                     }];
                 }
                 completionBlock();
@@ -91,10 +94,10 @@
     
     for (NSDictionary* contact in userContacts) {
         
-//        self.typeOfUser = @"BGU";
-//        CKRecordID *userRecordID = [[CKRecordID alloc] initWithRecordName:[NSString stringWithFormat:@"%@%@",self.typeOfUser, contact[@"name"]]];
-//        CKRecord *userRecord = [[CKRecord alloc] initWithRecordType:@"boopUsers" recordID:userRecordID];
-        CKRecord* userRecord = [[CKRecord alloc]initWithRecordType:@"boopUsers"];
+        self.typeOfUser = @"BGU";
+        CKRecordID *userRecordID = [[CKRecordID alloc] initWithRecordName:[NSString stringWithFormat:@"%@%@",self.typeOfUser, contact[@"id"]]];
+        CKRecord *userRecord = [[CKRecord alloc] initWithRecordType:@"boopUsers" recordID:userRecordID];
+//        CKRecord* userRecord = [[CKRecord alloc]initWithRecordType:@"boopUsers"];
         
         
         userRecord[@"name"] = contact[@"name"];
@@ -118,6 +121,31 @@
         }];
     }
     completionBlock();
+}
+
+-(void)fetchUserContact:(void (^)(void))completionBlock{
+
+    CKContainer* myContainer  = [CKContainer defaultContainer];
+    CKDatabase* publicDatabase = [myContainer publicCloudDatabase];
+    CKReference* recordToMatch = [[CKReference alloc] initWithRecordID:[BPUserData sharedInstance].currentUserData.recordID action:CKReferenceActionNone];
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"contactList CONTAINS %@",recordToMatch];
+        CKQuery *query = [[CKQuery alloc] initWithRecordType:@"boopUsers" predicate:predicate];
+        [publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+            if (error) {
+                // Error handling for failed fetch from public database
+                NSLog(@"error querying knotwork users %@", error);
+            }
+            else {
+                // Display the fetched records
+                NSLog(@"result for contacts %@", results);
+                self.currentUserContacts = results;
+                
+                NSLog(@"result for self.currentContacts %@", self.currentUserContacts);
+            }
+        }];
+        
+    });
 }
 
 
