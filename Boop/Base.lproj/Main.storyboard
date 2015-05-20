@@ -22,26 +22,12 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="420"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5T-lE-HoN">
-                                <rect key="frame" x="277" y="560" width="46" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="vL5-oK-QpG"/>
-                                </constraints>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="check:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="RaH-Uw-WD0"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.65098039220000004" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="UzE-bW-uas" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="Jfk-p9-t7A"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UzE-bW-uas" secondAttribute="trailing" constant="-16" id="Q8E-dG-aSK"/>
-                            <constraint firstAttribute="centerX" secondItem="c5T-lE-HoN" secondAttribute="centerX" id="cGX-tP-ZLq"/>
                             <constraint firstItem="UzE-bW-uas" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="ixQ-vz-Bp3"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="c5T-lE-HoN" secondAttribute="bottom" constant="10" id="nzW-ai-N8t"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="UzE-bW-uas" secondAttribute="bottom" constant="160" id="wVr-Cr-lKZ"/>
                         </constraints>
                     </view>
@@ -292,7 +278,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S1V-T6-kGC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1538" y="-502"/>
+            <point key="canvasLocation" x="1576" y="-502"/>
         </scene>
         <!--Contact List View Controller-->
         <scene sceneID="YX2-gJ-fX5">
@@ -332,7 +318,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xKy-Um-DcP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2239" y="-502"/>
+            <point key="canvasLocation" x="2269" y="-502"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="vvf-b6-Rlg">
@@ -401,7 +387,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P25-Ek-0GH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="164" y="170"/>
+            <point key="canvasLocation" x="164" y="222"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="8ob-qa-FGY">
@@ -409,7 +395,7 @@
                 <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" modalTransitionStyle="flipHorizontal" hidesBottomBarWhenPushed="YES" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="m1f-CP-VLM" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xe9-PQ-2xZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="160" y="-1166"/>
+            <point key="canvasLocation" x="164" y="-1218"/>
         </scene>
         <!--Tutorial View Controller-->
         <scene sceneID="YDu-l2-Xci">
@@ -481,7 +467,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLT-Ip-NOx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="878" y="-1166"/>
+            <point key="canvasLocation" x="868" y="-1218"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Zv3-dy-sYI">

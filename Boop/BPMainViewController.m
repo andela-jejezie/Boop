@@ -25,7 +25,7 @@
     [super viewDidLoad];
         // Do any additional setup after loading the view.
     self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0 green:0.65 blue:0.49 alpha:1];
-
+    self.navigationItem.hidesBackButton = YES;
    
 }
 

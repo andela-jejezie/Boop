@@ -50,7 +50,6 @@
 //    BPUserData* bpUserData = [[BPUserData alloc]init];
     [self.view addSubview:loginButton];
     }
-
     // Do any additional setup after loading the view, typically from a nib.
 }
 //-(void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error{
@@ -70,8 +69,6 @@
 //        [self fetchUserContact];
 //    }
 //}
-
-
 -(void)getUser {
     if ([FBSDKAccessToken currentAccessToken]) {
         
@@ -112,9 +109,10 @@
     if (!error) {
         
         [self getUser];
-        
+          [self performSegueWithIdentifier:@"mainView" sender:nil];
     }
     NSLog(@"login in");
+   
 }
 
 -(void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
