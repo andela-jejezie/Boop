@@ -20,6 +20,11 @@
     // Override point for customization after application launch.
 //    return [[FBSDKApplicationDelegate sharedInstance] application:application
 //                                    didFinishLaunchingWithOptions:launchOptions];
+    UIPageControl *pageControl = [UIPageControl appearance];
+    pageControl.pageIndicatorTintColor = [UIColor whiteColor];
+    pageControl.layer.borderColor =  [UIColor colorWithRed:0.10 green:0.59 blue:0.80 alpha:1].CGColor;
+    pageControl.currentPageIndicatorTintColor =  [UIColor blackColor];
+    pageControl.backgroundColor =  [UIColor colorWithRed:0 green:0.65 blue:0.49 alpha:1];
     [FBSDKLoginButton class];
     return YES;
 }

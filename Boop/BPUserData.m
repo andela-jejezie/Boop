@@ -13,6 +13,7 @@
 
 
 -(id)init:(CKRecord *)currentUserData
+    selectedForChat:(CKRecord *)selectedForChat
     currentUserContacts:(NSMutableArray *)currentUserContacts
     currentUserFBResponse: (NSDictionary *)currentUserFBResponse
     currentUserContactsFBResponse: (NSMutableArray *)currentUserContactsFBResponse selectedFriend:(CKRecord*)selectedFriend
@@ -24,6 +25,8 @@
         _currentUserContactsFBResponse = currentUserContactsFBResponse;
         _currentUserFBResponse = currentUserFBResponse;
         _selectedFriend = selectedFriend;
+        _selectedForChat = _selectedForChat;
+        _closeTutorialPage = NO;
     }
     return self;
 }
@@ -99,8 +102,6 @@
         CKRecordID *userRecordID = [[CKRecordID alloc] initWithRecordName:[NSString stringWithFormat:@"%@%@",self.typeOfUser, contact[@"name"]]];
         CKRecord *userRecord = [[CKRecord alloc] initWithRecordType:@"boopUsers" recordID:userRecordID];
 //        CKRecord* userRecord = [[CKRecord alloc]initWithRecordType:@"boopUsers"];
-        
-        
         userRecord[@"name"] = contact[@"name"];
         userRecord[@"picture"] = contact[@"picture"][@"data"][@"url"];
         userRecord[@"registeredKnotworkUser"] = @"NO";  //        BOOL boolValue = [myString boolValue]

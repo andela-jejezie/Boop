@@ -12,6 +12,7 @@
 
 @interface BPUserData : NSObject
 @property(nonatomic, strong)CKRecord* currentUserData;
+@property(nonatomic, strong)CKRecord* selectedForChat;
 @property(nonatomic, strong)NSDictionary* currentUserFBResponse;
 @property(nonatomic, strong)NSMutableArray* currentUserContactsFBResponse;
 @property(nonatomic, strong)NSMutableArray* currentUserContacts;
@@ -20,7 +21,7 @@
 @property(nonatomic,strong) CKRecord* refRecord;
 @property(nonatomic,strong) NSString* typeOfUser;
 @property(nonatomic,strong) CKRecord* selectedFriend;
-
+@property(nonatomic,assign) BOOL* closeTutorialPage;
 
 
 

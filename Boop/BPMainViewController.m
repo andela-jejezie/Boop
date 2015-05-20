@@ -24,15 +24,14 @@
 @end
 
 @implementation BPMainViewController
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view.
     self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0 green:0.65 blue:0.49 alpha:1];
     self.isSendButtonTapped = NO;
 
 
+   
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -51,8 +50,6 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    
-    [self refreshFriend];
     
     [self displayRandomlySelectedFriend:self.randomFriend];
     [self topViewBorder];
@@ -98,12 +95,15 @@
 - (IBAction)refreshFriendButton:(id)sender {
     self.isBorderAdded = YES;
     
+    [self refreshFriend];
+    
 //    [self viewDidLoad];
     [self viewWillAppear:YES];
     [self viewDidAppear:YES];
 }
 - (IBAction)sendButton:(id)sender {
     self.isSendButtonTapped = YES;
+    self.isBorderAdded = YES;
     [[BPUserData sharedInstance] boopSomeone:self.messageTextView.text completion:^{
         NSLog(@"done");
         [self performSegueWithIdentifier:@"BoopSent" sender:nil];
@@ -117,8 +117,9 @@
 
 -(void)topViewBorder {
     
-    if (self.isBorderAdded) {
+    if (self.isBorderAdded || self.isSendButtonTapped) {
         self.isBorderAdded = NO;
+        self.isSendButtonTapped = NO;
         return;
     }
     
@@ -156,4 +157,6 @@
     [self.view addSubview:middleBar];
     
 }
+
+
 @end
